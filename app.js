@@ -202,7 +202,13 @@ function receivedMessage(event) {
     if((messageText.toUpperCase().startsWith("HELLO"))||(messageText.toUpperCase().startsWith("HI"))){
       console.log("recieved a init request: %s",messageText);
       sendWelcomeMessage(senderID);
-    }else{
+    }
+    else if (messageText.startsWith("helpbooking")) {
+      var res = messageText.split(" ")
+      sendTextMessage(senderID,"your id is "+res[1]);
+
+    }
+    else{
       switch (messageText) {
         case 'image':
           sendImageMessage(senderID);
