@@ -198,9 +198,9 @@ function receivedMessage(event) {
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    console.log("recieved a request: "+messageText);
+    console.log("recieved a request: %s",messageText);
     if((messageText.toUpperCase().startsWith("HELLO"))||(messageText.toUpperCase().startsWith("HI"))){
-      console.log("recieved a init request: "+messageText);
+      console.log("recieved a init request: %s",messageText);
       sendWelcomeMessage(senderID);
     }else{
       switch (messageText) {
