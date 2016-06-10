@@ -205,7 +205,40 @@ function receivedMessage(event) {
     }
     else if (messageText.startsWith("helpbooking")) {
       var res = messageText.split(" ")
-      sendTextMessage(senderID,"your id is "+res[1]);
+      var bookingId = res[1];
+      //
+      var options = {
+        host: 'http://api.zoomcar.com',
+        port: 80,
+        path: '/v4/bookings/details',
+        method: 'POST',
+        headers: {
+          booking_id: bookingId,
+          auth_token:"_WZzDgh3BFHi7SHk_hmy",
+          device_id: "123",
+          platform:"android",
+          metadata:1
+        }
+      };
+      var result='';
+      http.request(options, function(res) {
+        console.log('STATUS: ' + res.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(res.headers));
+        res.setEncoding('utf8');
+        var res='';
+        res.on('data', function (chunk) {
+          res+=chunk;
+        });
+        res.on('end',function(){
+          var refunds = res.refunds;
+          refunds.forEach(function(refund){
+            result+=refund.msg+" at "+refund.note+"\n";
+          });
+        })
+      }).end();
+      //
+
+      sendTextMessage(senderID,result);
 
     }
     else{
@@ -391,12 +424,12 @@ function sendWelcomeMessage(recipientId){
           {
             type: "postback",
             payload: "tariff",
-            title: "Check tarrifs"
+            title: "Tarrifs"
           },
           {
             type: "postback",
             payload: "booking",
-            title: "Check Booking Status"
+            title: "Bookings"
           }
         ]
         }
