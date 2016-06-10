@@ -338,7 +338,7 @@ function sendBookingMessage(recipientId){
     callSendAPI(messageData);
 }
 function sendBookingIssueMessage(recipientId){
-  sendTextMessage(senderID, "please provide your booking id as helpbooking <bookingid> e.g. helpbooking JPS6ABCDE");
+  sendTextMessage(recipientId, "please provide your booking id as helpbooking <bookingid> e.g. helpbooking JPS6ABCDE");
 }
 
 
