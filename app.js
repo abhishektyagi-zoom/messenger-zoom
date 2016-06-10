@@ -323,7 +323,7 @@ function sendWelcomeMessage(recipientId){
           },
           {
             type:"web_url",
-            url: "https://play.google.com/store/apps/details?id=com.zoomcar&hl=en"
+            url: "https://play.google.com/store/apps/details?id=com.zoomcar&hl=en",
             title:"Android app"
           },
           {
