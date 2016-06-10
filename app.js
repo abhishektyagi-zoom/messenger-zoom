@@ -278,7 +278,64 @@ function receivedPostback(event) {
 
   // When a postback is called, we'll send a message back to the sender to
   // let them know it was successful
+  switch (messageText) {
+    case 'booking':
+      sendBookingMessage(senderID);
+      break;
+
+    case 'button':
+      sendButtonMessage(senderID);
+      break;
+
+    case 'generic':
+      sendGenericMessage(senderID);
+      break;
+
+    case 'receipt':
+      sendReceiptMessage(senderID);
+      break;
+
+    default:
+      sendTextMessage(senderID, messageText);
+  }
+
   sendTextMessage(senderID, "Postback called");
+}
+
+
+function sendBookingMessage(recipientId){
+
+    var messageData = {
+      recipient:{
+        id: recipientId
+      },
+      message:{
+        attachment:{
+          type: "template",
+          payload: {
+            template_type: "button",
+            text: "Booking Options",
+            buttons:[{
+              type:"web_url",
+              url: "http://www.zoomcar.com",
+              title: "How to book a Zoomcar"
+            },
+            {
+              type: "postback",
+              payload: "booking_issue",
+              title: "Issue with booking"
+            },
+            {
+              type: "postback",
+              payload: "booking_status",
+              title: "Check status of your booking"
+            }
+          ]
+          }
+        }
+      }
+    };
+    callSendAPI(messageData);
 }
 
 
