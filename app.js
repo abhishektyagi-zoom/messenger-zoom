@@ -278,7 +278,7 @@ function receivedPostback(event) {
 
   // When a postback is called, we'll send a message back to the sender to
   // let them know it was successful
-  switch (messageText) {
+  switch (payload) {
     case 'booking':
       sendBookingMessage(senderID);
       break;
