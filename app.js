@@ -198,9 +198,8 @@ function receivedMessage(event) {
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    if(seq < 500){
+    if((messageText.toUpperCase().startsWith("HI")) || (messageText.toUpperCase().startsWith("HELLO"))){
       sendWelcomeMessage(senderID);
-
     }else{
       switch (messageText) {
         case 'image':
@@ -330,6 +329,11 @@ function sendWelcomeMessage(recipientId){
             type: "postback",
             payload: "tariff",
             title: "Check tarrifs"
+          },
+          {
+            type: "postback",
+            payload: "booking",
+            title: "Check Booking Status"
           }
         ]
         }
