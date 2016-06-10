@@ -342,7 +342,7 @@ function sendBookingIssueMessage(recipientId){
     attachment:{
       type: "template",
       payload: {
-        text: "booking <BookingId>",
+        text: "helpbooking <BookingId>",
       }
     }
   }
