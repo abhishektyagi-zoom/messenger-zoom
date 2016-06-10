@@ -230,6 +230,7 @@ function receivedMessage(event) {
           res+=chunk;
         });
         res.on('end',function(){
+          console.log("RESPONSE: %s",res);
           var refunds = res.refunds;
           refunds.forEach(function(refund){
             result+=refund.msg+" at "+refund.note+"\n";
