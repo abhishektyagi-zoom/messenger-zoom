@@ -338,21 +338,7 @@ function sendBookingMessage(recipientId){
     callSendAPI(messageData);
 }
 function sendBookingIssueMessage(recipientId){
-  var messageData={
-    recipient:{
-      id: recipientId
-    },
-    message:{
-      attachment:{
-        type: "template",
-        payload: {
-          text: "helpbooking <BookingId>",
-        }
-      }
-    }
-
-  }
-  callSendAPI(messageData);
+  sendTextMessage(senderID, "please provide your booking id as helpbooking <bookingid> e.g. helpbooking JPS6ABCDE");
 }
 
 
