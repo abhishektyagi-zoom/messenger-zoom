@@ -199,6 +199,7 @@ function receivedMessage(event) {
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
     if((messageText.toUpperCase().startsWith("HI")) || (messageText.toUpperCase().startsWith("HELLO"))){
+      console.log("recieved a init request: "+messageText);
       sendWelcomeMessage(senderID);
     }else{
       switch (messageText) {
