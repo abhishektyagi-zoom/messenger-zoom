@@ -283,8 +283,8 @@ function receivedPostback(event) {
       sendBookingMessage(senderID);
       break;
 
-    case 'button':
-      sendButtonMessage(senderID);
+    case 'booking_issue':
+      sendBookingIssueMessage(senderID);
       break;
 
     case 'generic':
@@ -299,7 +299,7 @@ function receivedPostback(event) {
       sendTextMessage(senderID, messageText);
   }
 
-  sendTextMessage(senderID, "Postback called");
+  // sendTextMessage(senderID, "Postback called");
 }
 
 
@@ -336,6 +336,17 @@ function sendBookingMessage(recipientId){
       }
     };
     callSendAPI(messageData);
+}
+function sendBookingIssueMessage(recipientId){
+  var messageData={
+    attachment:{
+      type: "template",
+      payload: {
+        text: "booking <BookingId>",
+      }
+    }
+  }
+  callSendAPI(messageData);
 }
 
 
