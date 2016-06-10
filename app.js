@@ -323,11 +323,6 @@ function sendWelcomeMessage(recipientId){
             title: "Zoomcar Website"
           },
           {
-            type:"web_url",
-            url: "https://play.google.com/store/apps/details?id=com.zoomcar&hl=en",
-            title:"Android app"
-          },
-          {
             type: "postback",
             payload: "tariff",
             title: "Check tarrifs"
