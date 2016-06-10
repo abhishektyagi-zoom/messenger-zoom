@@ -339,12 +339,18 @@ function sendBookingMessage(recipientId){
 }
 function sendBookingIssueMessage(recipientId){
   var messageData={
-    attachment:{
-      type: "template",
-      payload: {
-        text: "helpbooking <BookingId>",
+    recipient:{
+      id: recipientId
+    },
+    message:{
+      attachment:{
+        type: "template",
+        payload: {
+          text: "helpbooking <BookingId>",
+        }
       }
     }
+
   }
   callSendAPI(messageData);
 }
