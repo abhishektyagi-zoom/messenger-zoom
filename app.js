@@ -239,7 +239,8 @@ function receivedMessage(event) {
           } else {
             console.log("REFUND is null");
           }
-          sendTextMessage(senderID,result);
+          console.log("Results: "+results);
+          sendTextMessage(senderID,results);
         });
       }
       var req = http.request(options, callback);
