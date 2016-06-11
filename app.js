@@ -440,8 +440,8 @@ function sendWelcomeMessage(recipientId){
             title: "Zoomcar Website"
           },
           {
-            type: "postback",
-            payload: "tariff",
+            type: "web_url",
+            url: "http://www.zoomcar.com/tariff",
             title: "Tarrifs"
           },
           {
