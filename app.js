@@ -7,6 +7,7 @@ const
   crypto = require('crypto'),
   express = require('express'),
   https = require('https'),
+  http = require('http'),
   request = require('request');
 
 var app = express();
@@ -68,6 +69,7 @@ app.get('/webhook', function(req, res) {
 app.post('/webhook', function (req, res) {
 
   var data = req.body;
+  // console.log(JSON.stringify(data));
 
   // Make sure this is a page subscription
   if (data.object == 'page') {
@@ -176,7 +178,7 @@ function receivedAuthentication(event) {
  *
  */
 function receivedMessage(event) {
-  console.log(JSON.stringify(event));
+  // console.log(JSON.stringify(event));
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
@@ -195,6 +197,7 @@ function receivedMessage(event) {
 
 
   if (messageText) {
+    // console.log("coming here");
 
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
@@ -209,37 +212,50 @@ function receivedMessage(event) {
       var bookingId = res[1];
       //
       var options = {
-        host: 'http://api.zoomcar.com',
+        host: 'api.zoomcar.com',
         port: 80,
         path: '/v4/bookings/details',
         method: 'POST',
         headers: {
-          booking_id: bookingId,
-          auth_token:"_WZzDgh3BFHi7SHk_hmy",
-          device_id: "123",
-          platform:"android",
-          metadata:1
+          'Content-Type':'application/json'
         }
       };
       var result='';
-      https.request(options, function(res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        var res='';
-        res.on('data', function (chunk) {
-          res+=chunk;
+      var callback = function(response) {
+        var str = '';
+        response.on('data', function (chunk) {
+          str += chunk;
         });
-        res.on('end',function(){
-          console.log("RESPONSE: %s",res);
-          var refunds = res.refunds;
-          refunds.forEach(function(refund){
-            result+=refund.msg+" at "+refund.note+"\n";
-          });
-        })
-      }).end();
-      //
 
+        response.on('end', function () {
+          var p = JSON.parse(str);
+          var refunds = p.refunds;
+          var results='';
+          if(refunds){
+            refunds.forEach(function(refund){
+              results +=(refund.msg + " at " + refund.time+"\n")
+              console.log("REFUND LOG: "+ refund.msg + " at " +refund.time);
+            });
+          } else {
+            console.log("REFUND is null");
+          }
+
+        });
+      }
+      var req = http.request(options, callback);
+
+      var payload = {
+        booking_id:"JPS6VHD5O",
+        auth_token:"_WZzDgh3BFHi7SHk_hmy",
+        device_id:"123",
+        platform:"android",
+        metadata:1
+      }
+      // console.log("PAYLOAD: "+JSON.stringify(payload));
+      req.write(JSON.stringify(payload));
+
+      req.end();
+      //
       sendTextMessage(senderID,result);
 
     }
