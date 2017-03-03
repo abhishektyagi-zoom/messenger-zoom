@@ -247,7 +247,7 @@ function receivedMessage(event) {
 
       var payload = {
         booking_id:"JPS6VHD5O",
-        auth_token:"_WZzDgh3BFHi7SHk_hmy",
+        auth_token:"<replaceMe>",
         device_id:"123",
         platform:"android",
         metadata:1
